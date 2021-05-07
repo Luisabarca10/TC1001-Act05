@@ -18,6 +18,7 @@ car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None, 'taps': 0, 'pairs': 0}
 hide = [True] * 64
+imgs = [f'./imgs/img{i}.gif' for i in range(32)]
 
 def square(x, y):
     "Draw white square with black outline at (x, y)."
@@ -71,11 +72,11 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         num = tiles[mark]
-        off_x = 3 if num > 9 else 14
         up()
-        goto(x + off_x, y - 2)
-        color('black')
-        write(tiles[mark], font=('Monospace', 30, 'normal'))
+        goto(x + 25, y + 25)
+        shape(imgs[tiles[mark]])
+        stamp()
+
     pairs = state['pairs']
     if pairs >= 32:
         up()
@@ -95,6 +96,8 @@ def draw():
 shuffle(tiles)
 setup(500, 420, 370, 0)
 addshape(car)
+for s in imgs:
+    addshape(s)
 hideturtle()
 tracer(False)
 onscreenclick(tap)
