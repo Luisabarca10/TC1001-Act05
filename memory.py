@@ -16,7 +16,7 @@ from freegames import path
 
 car = path('car.gif')
 tiles = list(range(32)) * 2
-state = {'mark': None, 'taps': 0}
+state = {'mark': None, 'taps': 0, 'pairs': 0}
 hide = [True] * 64
 
 def square(x, y):
@@ -50,6 +50,7 @@ def tap(x, y):
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
+        state['pairs'] = state['pairs'] + 1
     
     state['taps'] = state['taps'] + 1
 
@@ -75,6 +76,12 @@ def draw():
         goto(x + off_x, y - 2)
         color('black')
         write(tiles[mark], font=('Monospace', 30, 'normal'))
+    pairs = state['pairs']
+    if pairs >= 32:
+        up()
+        goto(-20, 0)
+        color('green')
+        write('Great!! you got all the 32 pairs', font=('Arial', 20, 'normal'))
     
     up()
     goto(200, 100)
