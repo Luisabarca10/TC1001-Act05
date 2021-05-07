@@ -69,15 +69,17 @@ def draw():
 
     if mark is not None and hide[mark]:
         x, y = xy(mark)
+        num = tiles[mark]
+        off_x = 3 if num > 9 else 14
         up()
-        goto(x + 2, y)
+        goto(x + off_x, y - 2)
         color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        write(tiles[mark], font=('Monospace', 30, 'normal'))
     
     up()
     goto(200, 100)
     color('black')
-    write(state['taps'], font=('Arial', 30, 'normal'))
+    write(state['taps'], font=('Monospace', 30, 'normal'))
 
 
     update()
