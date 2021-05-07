@@ -33,11 +33,11 @@ def square(x, y):
 
 def index(x, y):
     "Convert (x, y) coordinates to tiles index."
-    return int((x + 200) // 50 + ((y + 200) // 50) * 8)
+    return int((x + 240) // 50 + ((y + 200) // 50) * 8)
 
 def xy(count):
     "Convert tiles count to (x, y) coordinates."
-    return (count % 8) * 50 - 200, (count // 8) * 50 - 200
+    return (count % 8) * 50 - 240, (count // 8) * 50 - 200
 
 def tap(x, y):
     "Update mark and hidden tiles based on tap."
@@ -54,7 +54,7 @@ def tap(x, y):
 def draw():
     "Draw image and tiles."
     clear()
-    goto(0, 0)
+    goto(-40, 0)
     shape(car)
     stamp()
 
@@ -76,7 +76,7 @@ def draw():
     ontimer(draw, 100)
 
 shuffle(tiles)
-setup(420, 420, 370, 0)
+setup(500, 420, 370, 0)
 addshape(car)
 hideturtle()
 tracer(False)
