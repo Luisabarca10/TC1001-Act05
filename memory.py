@@ -18,6 +18,7 @@ car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None, 'taps': 0, 'pairs': 0}
 hide = [True] * 64
+imgs = [f'./imgs/img{i}.gif' for i in range(32)]
 
 def square(x, y):
     "Draw white square with black outline at (x, y)."
@@ -33,11 +34,11 @@ def square(x, y):
 
 def index(x, y):
     "Convert (x, y) coordinates to tiles index."
-    return int((x + 240) // 50 + ((y + 200) // 50) * 8)
+    return int((x + 240) // 50 + ((y + 160) // 50) * 8)
 
 def xy(count):
     "Convert tiles count to (x, y) coordinates."
-    return (count % 8) * 50 - 240, (count // 8) * 50 - 200
+    return (count % 8) * 50 - 240, (count // 8) * 50 - 160
 
 def tap(x, y):
     "Update mark and hidden tiles based on tap."
@@ -57,7 +58,7 @@ def tap(x, y):
 def draw():
     "Draw image and tiles."
     clear()
-    goto(-40, 0)
+    goto(-40, 40)
     shape(car)
     stamp()
 
@@ -71,15 +72,15 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         num = tiles[mark]
-        off_x = 3 if num > 9 else 14
         up()
-        goto(x + off_x, y - 2)
-        color('black')
-        write(tiles[mark], font=('Monospace', 30, 'normal'))
+        goto(x + 25, y + 25)
+        shape(imgs[tiles[mark]])
+        stamp()
+
     pairs = state['pairs']
     if pairs >= 32:
         up()
-        goto(-20, 0)
+        goto(-240, -220)
         color('green')
         write('Great!! you got all the 32 pairs', font=('Arial', 20, 'normal'))
     
@@ -93,8 +94,10 @@ def draw():
     ontimer(draw, 100)
 
 shuffle(tiles)
-setup(500, 420, 370, 0)
+setup(500, 500, 370, 0)
 addshape(car)
+for s in imgs:
+    addshape(s)
 hideturtle()
 tracer(False)
 onscreenclick(tap)
